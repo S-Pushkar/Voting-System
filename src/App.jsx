@@ -15,7 +15,7 @@ function App() {
       </header>
       <main className='text-center p-12'>
         <Routes>
-          <Route path="/" element={<Home />} />   {/* This is the home page*/}
+          <Route path="/" element={<Home />} />   {/*This is the home page*/}
           <Route path="/log-in" element={<Login />} />
           <Route path="/sign-up" element={<Signup />} />
         </Routes>
