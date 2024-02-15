@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Login() {
+export default function Login({ log, setLog }) {
     return (
         <div className="flex flex-col items-center px-8 lg:px-20 md:text-base text-xs lg:text-base">
             <div className="lg:w-1/3 sm:w-1/2 bg-[#646464] rounded-xl mb-8 p-8">
@@ -24,7 +24,7 @@ export default function Login() {
 					</div>
 					<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 						<h4 style={{ fontSize: '16px' }}>Click&nbsp;</h4>
-                        <Link to="/sign-up">Here</Link>
+                        <Link to="/sign-up" style={{ fontSize: '16px' }}>Here</Link>
 						<h4 style={{ fontSize: '16px' }}>&nbsp;to signup</h4>
 					</div>
                 </form>
