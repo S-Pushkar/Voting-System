@@ -1,7 +1,7 @@
 export default function Home() {
     return (
         <>
-            <p>Sample stuff</p>
+            <p>Sample  u stuff</p>
         </>
     );
 }
