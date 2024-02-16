@@ -10,7 +10,7 @@ function App() {
   let [isCandidate, setIsCandidate] = useState(false);
   return (
     <>
-      <header className='sticky top-0 bg-slate-900 w-full'>
+      <header className='sticky top-0 bg-slate-900 w-full z-10'>
         <div className='p-4'>
           <Link to="/" className="text-white hover:text-white"><h1 className='text-center lg:text-4xl text-lg md:text-lg'>VOTING SYSTEM</h1></Link>
           <Link to="/" className='lg:text-xl md:text-lg text-sm px-4'>Home</Link>

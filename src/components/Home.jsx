@@ -4,7 +4,7 @@ export default function Home({ log, setLog, isCandidate, setIsCandidate }) {
         <>
             <section className="flex flex-row flex-wrap justify-around text-center">
                 {candidates.map((candidateName, index) => (
-                    <div key={index} className='text-center lg:w-1/5 md:w-3/5 w-4/5 hover:drop-shadow-md bg-opacity-10 text-white bg-white p-4 m-4 rounded-md'>
+                    <div key={index} className='text-center lg:w-1/5 md:w-3/5 w-4/5 hover:scale-105 bg-opacity-10 text-white bg-white p-4 m-4 rounded-md'>
                         <p className="m-1 lg:text-lg md:text-base text-sm font-bold">{candidateName.toUpperCase()}</p>
                         <p className="m-1">Votes: 0</p>
                         <button className="lg:text-base text-xs md:text-base w-2/5">Vote</button>
@@ -15,12 +15,12 @@ export default function Home({ log, setLog, isCandidate, setIsCandidate }) {
                 {isCandidate ? (
                     <div>
                         <p className="m-2">Wanna stop being a candidate?</p>
-                        <button className="m-2 bg-red-500">Unregister</button>
+                        <button className="m-2 bg-red-500 hover:scale-105">Unregister</button>
                     </div>
                 ) : (
                     <div>
                         <p className="m-2">Wanna become a candidate?</p>
-                        <button className="m-2 bg-red-500">Register</button>
+                        <button className="m-2 bg-red-500 hover:scale-105">Register</button>
                     </div>
                 )}
             </section>
