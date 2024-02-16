@@ -11,7 +11,7 @@ function App() {
     <>
       <header className='sticky top-0 bg-slate-900 w-full'>
         <div className='p-4'>
-          <h1 className='text-center lg:text-4xl text-lg md:text-lg'>Voting System</h1>
+          <Link to="/" className="text-white hover:text-white"><h1 className='text-center lg:text-4xl text-lg md:text-lg'>VOTING SYSTEM</h1></Link>
           <Link to="/" className='lg:text-xl md:text-lg text-sm px-4'>Home</Link>
           <Link to="/log-in" className='lg:text-xl md:text-lg text-sm px-4'>Login</Link>
         </div>
