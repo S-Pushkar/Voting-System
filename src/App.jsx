@@ -7,6 +7,7 @@ import { useState } from 'react';
 
 function App() {
   let [log, setLog] = useState(false);
+  let [isCandidate, setIsCandidate] = useState(false);
   return (
     <>
       <header className='sticky top-0 bg-slate-900 w-full'>
@@ -19,7 +20,7 @@ function App() {
       </header>
       <main className='text-center p-8'>
         <Routes>
-          <Route path="/" element={<Home />} />   {/* This is the home page*/}
+          <Route path="/" element={<Home log={log} setLog={setLog} isCandidate={isCandidate} setIsCandidate={setIsCandidate} />} />
           <Route path="/log-in" element={<Login log={log} setLog={setLog} />} />
           <Route path="/sign-up" element={<Signup log={log} setLog={setLog} />} />
         </Routes>
