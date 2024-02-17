@@ -9,6 +9,10 @@ export default function Signup({ log, setLog }) {
     let [confirm, setConfirm] = useState("");
     let navigate = useNavigate();
 
+    if (log) {
+        navigate("/");
+    }
+
     async function handleSubmit(e) {
         e.preventDefault();
         if (name == "" || email == "" || password == "" || confirm == "") {
@@ -29,7 +33,7 @@ export default function Signup({ log, setLog }) {
         }
         const response = await fetch("http://localhost:8080/sign-up", {
             method: 'POST',
-            headers:{'Content-Type': 'application/json',},
+            headers: {'Content-Type': 'application/json',},
             body: JSON.stringify({
                 name: name,
                 email: email,
