@@ -8,6 +8,9 @@ import { useEffect, useState } from 'react';
 function App() {
   let [log, setLog] = useState(false);
   let [isCandidate, setIsCandidate] = useState(false);
+  let [votedFor, setVotedFor] = useState(new Array());
+  let [candidates, setCandidates] = useState(new Array());
+  let [userEmail, setUserEmail] = useState("");
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -29,9 +32,9 @@ function App() {
       </header>
       <main className='text-center p-8'>
         <Routes>
-          <Route path="/" element={<Home log={log} setLog={setLog} isCandidate={isCandidate} setIsCandidate={setIsCandidate} />} />
-          <Route path="/log-in" element={<Login log={log} setLog={setLog} />} />
-          <Route path="/sign-up" element={<Signup log={log} setLog={setLog} />} />
+          <Route path="/" element={<Home log={log} setLog={setLog} isCandidate={isCandidate} setIsCandidate={setIsCandidate} votedFor={votedFor} setVotedFor={setVotedFor} candidates={candidates} setCandidates={setCandidates} userEmail={userEmail} />} />
+          <Route path="/log-in" element={<Login log={log} setLog={setLog} votedFor={votedFor} setVotedFor={setVotedFor} setUserEmail={setUserEmail} />} />
+          <Route path="/sign-up" element={<Signup log={log} setLog={setLog} votedFor={votedFor} setVotedFor={setVotedFor} setUserEmail={setUserEmail} />} />
         </Routes>
       </main>
       <footer>
