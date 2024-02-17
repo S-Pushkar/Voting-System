@@ -8,16 +8,44 @@ export default function Signup({ log, setLog }) {
     let [password, setPassword] = useState("");
     let [confirm, setConfirm] = useState("");
     let navigate = useNavigate();
-    function handleSubmit(e) {
+
+    async function handleSubmit(e) {
         e.preventDefault();
         if (name == "" || email == "" || password == "" || confirm == "") {
-            alert("Please enter inputs");
+            alert("Please enter inputs.");
             setName("");
             setEmail("");
             setPassword("");
             setConfirm("");
+            return;
         }
-        navigate("/");
+        if (password !== confirm) {
+            alert("Password and confirmation password do not match.");
+            setName("");
+            setEmail("");
+            setPassword("");
+            setConfirm("");
+            return;
+        }
+        const response = await fetch("http://localhost:8080/sign-up", {
+            method: 'POST',
+            headers:{'Content-Type': 'application/json',},
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                password: password
+            })
+        });
+        console.log(response);
+        if (response.ok) {
+            const { token } = await response.json();
+            localStorage.setItem("token", token);
+            setLog(true);
+            navigate("/");
+        }
+        else {
+            alert("Please try again");
+        }
     }
     return (
         <div className="flex flex-col items-center px-8 lg:px-20 md:text-base text-xs lg:text-base">

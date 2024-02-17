@@ -14,7 +14,10 @@ function App() {
         <div className='p-4'>
           <Link to="/" className="text-white hover:text-white"><h1 className='text-center lg:text-4xl text-lg md:text-lg'>VOTING SYSTEM</h1></Link>
           <Link to="/" className='lg:text-xl md:text-lg text-sm px-4'>Home</Link>
-          <Link to="/log-in" className='lg:text-xl md:text-lg text-sm px-4'>Login</Link>
+          {!log ? <Link to="/log-in" className='lg:text-xl md:text-lg text-sm px-4'>Login</Link> : <button onClick={() => {
+            localStorage.removeItem('token');
+            setLog(false);
+          }}>Logout</button>}
         </div>
         <hr />
       </header>
