@@ -7,6 +7,10 @@ export default function Login({ log, setLog }) {
     let [password, setPassword] = useState("");
     let navigate = useNavigate();
 
+    if (log) {
+        navigate("/");
+    }
+
     async function handleSubmit(e) {
         e.preventDefault();
         if (email == "" || password == "") {

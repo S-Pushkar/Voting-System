@@ -9,6 +9,10 @@ export default function Signup({ log, setLog }) {
     let [confirm, setConfirm] = useState("");
     let navigate = useNavigate();
 
+    if (log) {
+        navigate("/");
+    }
+
     async function handleSubmit(e) {
         e.preventDefault();
         if (name == "" || email == "" || password == "" || confirm == "") {
