@@ -29,7 +29,7 @@ export default function Signup({ log, setLog }) {
         }
         const response = await fetch("http://localhost:8080/sign-up", {
             method: 'POST',
-            headers:{'Content-Type': 'application/json',},
+            headers: {'Content-Type': 'application/json',},
             body: JSON.stringify({
                 name: name,
                 email: email,

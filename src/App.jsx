@@ -3,11 +3,17 @@ import { Routes, Route, Link } from 'react-router-dom';
 import Home from './components/Home';
 import Login from './components/Login';
 import Signup from './components/Signup';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
   let [log, setLog] = useState(false);
   let [isCandidate, setIsCandidate] = useState(false);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setLog(true);
+    }
+  }, []);
   return (
     <>
       <header className='sticky top-0 bg-slate-900 w-full z-10'>
