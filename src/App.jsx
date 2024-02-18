@@ -6,15 +6,56 @@ import Signup from './components/Signup';
 import { useEffect, useState } from 'react';
 
 function App() {
+  
   let [log, setLog] = useState(false);
   let [isCandidate, setIsCandidate] = useState(false);
   let [votedFor, setVotedFor] = useState(new Array());
   let [candidates, setCandidates] = useState(new Array());
   let [userEmail, setUserEmail] = useState("");
+  let [socket, setSocket] = useState(null);
   useEffect(() => {
+    let sock = new WebSocket("ws://localhost:8080/ws");
+    sock.addEventListener('open', (event) => {
+      console.log('WebSocket connection opened');
+      // You can perform additional actions when the connection is established
+    });
+    sock.addEventListener('message', (event) => {
+      console.log('Received from server:', event.data);
+      const data = JSON.parse(event.data);
+      setCandidates(data);
+      // console.log(event);
+      // You can handle incoming messages here
+    });
+    sock.addEventListener('close', (event) => {
+      console.log('WebSocket connection closed');
+      // You can handle the connection closing here
+    });
+    ////////////////////////////////////////////////////////////////////////////
     const token = localStorage.getItem('token');
     if (token) {
       setLog(true);
+      let func = async () => {
+        let resp = await fetch("http://localhost:8080/is-candidate", {
+          method: "POST",
+          headers: {'Content-Type': 'application/json',},
+          body: JSON.stringify({
+              token: token
+          })
+        });
+        resp = await resp.json();
+        setCandidates(resp.candidates);
+        if (resp.isCandidate) {
+          setIsCandidate(true);
+        }
+        else {
+          setIsCandidate(false);
+        }};
+      func();
+    }
+    setSocket(sock);
+    ////////////////////////////////////////////////////////////////////////////////////
+    return () => {
+      sock.close();
     }
   }, []);
   return (
