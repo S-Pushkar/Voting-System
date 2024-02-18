@@ -67,6 +67,7 @@ function App() {
           {!log ? <Link to="/log-in" className='lg:text-xl md:text-lg text-sm px-4'>Login</Link> : <button onClick={() => {
             localStorage.removeItem('token');
             setLog(false);
+            window.location.reload();
           }}>Logout</button>}
         </div>
         <hr />
