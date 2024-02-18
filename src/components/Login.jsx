@@ -26,7 +26,7 @@ export default function Login({ log, setLog, votedFor, setVotedFor, setUserEmail
                 password: password
             })
         });
-        console.log(response);
+        // console.log(response);
         if (response.ok) {
             const { token } = await response.json();
             localStorage.setItem("token", token);
