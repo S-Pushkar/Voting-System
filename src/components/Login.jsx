@@ -28,10 +28,10 @@ export default function Login({ log, setLog, votedFor, setVotedFor, setUserEmail
         });
         console.log(response);
         if (response.ok) {
-            const { token, candidatesVoted } = await response.json();
+            const { token } = await response.json();
             localStorage.setItem("token", token);
             setLog(true);
-            setVotedFor(candidatesVoted);
+            // setVotedFor(candidatesVoted);
             setUserEmail(email);
             navigate("/");
         }
