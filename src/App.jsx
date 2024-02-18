@@ -22,6 +22,7 @@ function App() {
     sock.addEventListener('message', (event) => {
       console.log('Received from server:', event.data);
       const data = JSON.parse(event.data);
+      data.sort((a, b) => b.votes - a.votes);
       setCandidates(data);
       // console.log(event);
       // You can handle incoming messages here
@@ -43,6 +44,7 @@ function App() {
           })
         });
         resp = await resp.json();
+        resp.candidates.sort((a, b) => b.votes - a.votes);
         setCandidates(resp.candidates);
         if (resp.isCandidate) {
           setIsCandidate(true);
@@ -67,6 +69,7 @@ function App() {
           {!log ? <Link to="/log-in" className='lg:text-xl md:text-lg text-sm px-4'>Login</Link> : <button onClick={() => {
             localStorage.removeItem('token');
             setLog(false);
+            window.location.reload();
           }}>Logout</button>}
         </div>
         <hr />
