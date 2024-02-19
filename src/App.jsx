@@ -9,27 +9,20 @@ function App() {
   
   let [log, setLog] = useState(false);
   let [isCandidate, setIsCandidate] = useState(false);
-  let [votedFor, setVotedFor] = useState(new Array());
   let [candidates, setCandidates] = useState(new Array());
-  let [userEmail, setUserEmail] = useState("");
-  let [socket, setSocket] = useState(null);
   useEffect(() => {
     let sock = new WebSocket("ws://localhost:8080/ws");
     sock.addEventListener('open', (event) => {
       console.log('WebSocket connection opened');
-      // You can perform additional actions when the connection is established
     });
     sock.addEventListener('message', (event) => {
       console.log('Received from server:', event.data);
       const data = JSON.parse(event.data);
       data.sort((a, b) => b.votes - a.votes);
       setCandidates(data);
-      // console.log(event);
-      // You can handle incoming messages here
     });
     sock.addEventListener('close', (event) => {
       console.log('WebSocket connection closed');
-      // You can handle the connection closing here
     });
     ////////////////////////////////////////////////////////////////////////////
     const token = localStorage.getItem('token');
@@ -54,7 +47,6 @@ function App() {
         }};
       func();
     }
-    setSocket(sock);
     ////////////////////////////////////////////////////////////////////////////////////
     return () => {
       sock.close();
@@ -76,9 +68,9 @@ function App() {
       </header>
       <main className='text-center p-8'>
         <Routes>
-          <Route path="/" element={<Home log={log} setLog={setLog} isCandidate={isCandidate} setIsCandidate={setIsCandidate} votedFor={votedFor} setVotedFor={setVotedFor} candidates={candidates} setCandidates={setCandidates} userEmail={userEmail} />} />
-          <Route path="/log-in" element={<Login log={log} setLog={setLog} votedFor={votedFor} setVotedFor={setVotedFor} setUserEmail={setUserEmail} />} />
-          <Route path="/sign-up" element={<Signup log={log} setLog={setLog} votedFor={votedFor} setVotedFor={setVotedFor} setUserEmail={setUserEmail} />} />
+          <Route path="/" element={<Home log={log} isCandidate={isCandidate} setIsCandidate={setIsCandidate} candidates={candidates} />} />
+          <Route path="/log-in" element={<Login log={log} setLog={setLog} />} />
+          <Route path="/sign-up" element={<Signup log={log} setLog={setLog} />} />
         </Routes>
       </main>
       <footer>

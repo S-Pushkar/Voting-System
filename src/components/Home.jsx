@@ -1,24 +1,10 @@
-import { useState } from "react";
+import React from "react";
 
-export default function Home({ log, setLog, isCandidate, setIsCandidate, votedFor, setVotedFor, candidates, setCandidates, userEmail }) {
-    // let candidates = ["bdkbkhwkjv", "bqekke", "vyebkbvku", "beybiwi", "vqenuibi", "vwwuihnuwoh", "vndui", "hiuwuiieuuw", "fby bbidb vhvh buu"];
+export default function Home({ log, isCandidate, setIsCandidate, candidates }) {
 
     // @param -> candidate: object from db
     async function handleVote(candidate) {
-        // console.log("******", votedFor);
-        // // if (votedFor && votedFor.includes(candidate)) {
-        // //     alert("You have already voted for this candidate.");
-        // //     return;
-        // // }
-        // if (votedFor) {
-        //     for (let i = 0; i < votedFor.length; i++) {
-        //         if (votedFor[i].email == candidate.email) {
-        //             return alert("You have already voted for this candidate.")
-        //         }
-        //     }
-        // }
         const token = localStorage.getItem('token');
-        // console.log(candidate);
         const response = await fetch("http://localhost:8080/vote", {
             method: "POST",
             headers: {'Content-Type': 'application/json',},
@@ -31,13 +17,6 @@ export default function Home({ log, setLog, isCandidate, setIsCandidate, votedFo
         if (response.ok) {
             let resData = await response.json();
             localStorage.setItem('token', resData.token);
-            // setCandidates(resData.candidates);
-            // if (!votedFor) {
-            //     votedFor = [];
-            // }
-            // votedFor.push(candidate);
-            // setVotedFor(votedFor);
-            // setVotedFor([...votedFor, candidate]);
         }
         else if (response.status == 400) {
             const resp = await response.json();
@@ -60,7 +39,6 @@ export default function Home({ log, setLog, isCandidate, setIsCandidate, votedFo
         if (response.ok) {
             let resData = await response.json();
             localStorage.setItem('token', resData.token);
-            // setCandidates(resData.candidates);
             setIsCandidate(true);
         }
         else {
@@ -79,15 +57,8 @@ export default function Home({ log, setLog, isCandidate, setIsCandidate, votedFo
         });
         if (response.ok) {
             let resData = await response.json();
-            // setCandidates(resData.candidates);
             localStorage.setItem('token', resData.token);
             setIsCandidate(false);
-            // for (let i = 0; i < votedFor.length; i++) {
-            //     if (votedFor[i].email != userEmail) {
-            //         temp.push(votedFor[i]);
-            //     }
-            // }
-            // setVotedFor(temp);
         }
         else {
             alert("Failed to unregister.");

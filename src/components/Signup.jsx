@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-export default function Signup({ log, setLog, votedFor, setVotedFor, setUserEmail }) {
+export default function Signup({ log, setLog }) {
     let [name, setName] = useState("");
     let [email, setEmail] = useState("");
     let [password, setPassword] = useState("");
@@ -45,8 +45,6 @@ export default function Signup({ log, setLog, votedFor, setVotedFor, setUserEmai
             const { token } = await response.json();
             localStorage.setItem("token", token);
             setLog(true);
-            // setVotedFor(candidatesVoted);
-            setUserEmail(email);
             navigate("/");
         }
         else {
