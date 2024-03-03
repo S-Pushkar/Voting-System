@@ -3,6 +3,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 import Home from './components/Home';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import Unknown from './components/Unknown';
 import { useEffect, useState } from 'react';
 
 function App() {
@@ -71,6 +72,7 @@ function App() {
           <Route path="/" element={<Home log={log} isCandidate={isCandidate} setIsCandidate={setIsCandidate} candidates={candidates} />} />
           <Route path="/log-in" element={<Login log={log} setLog={setLog} />} />
           <Route path="/sign-up" element={<Signup log={log} setLog={setLog} />} />
+          <Route path="*" element={<Unknown />} />
         </Routes>
       </main>
       <footer>
