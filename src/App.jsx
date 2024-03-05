@@ -17,7 +17,7 @@ function App() {
       console.log('WebSocket connection opened');
     });
     sock.addEventListener('message', (event) => {
-      console.log('Received from server:', event.data);
+      // console.log('Received from server:', event.data);
       const data = JSON.parse(event.data);
       // data.sort((a, b) => b.votes - a.votes);
       data.sort((a, b) => {
