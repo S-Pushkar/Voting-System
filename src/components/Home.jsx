@@ -68,7 +68,7 @@ export default function Home({ log, isCandidate, setIsCandidate, candidates }) {
     return (
         <>
             <section className="flex flex-row flex-wrap justify-around text-center">
-                {candidates && candidates.length > 0 ? candidates.map((candidate, index) => (
+                {log && candidates && candidates.length > 0 ? candidates.map((candidate, index) => (
                     <div key={index} className='text-center lg:w-1/5 md:w-3/5 w-4/5 bg-opacity-10 text-white bg-white p-4 m-4 rounded-md'>
                         <p className="m-1 lg:text-lg md:text-base text-sm font-bold">{candidate.name.toUpperCase()}</p>
                         <p className="m-1">Votes: {candidate.votes}</p>

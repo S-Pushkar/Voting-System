@@ -19,7 +19,16 @@ function App() {
     sock.addEventListener('message', (event) => {
       console.log('Received from server:', event.data);
       const data = JSON.parse(event.data);
-      data.sort((a, b) => b.votes - a.votes);
+      // data.sort((a, b) => b.votes - a.votes);
+      data.sort((a, b) => {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      });
       setCandidates(data);
     });
     sock.addEventListener('close', (event) => {
@@ -38,8 +47,8 @@ function App() {
           })
         });
         resp = await resp.json();
-        resp.candidates.sort((a, b) => b.votes - a.votes);
-        setCandidates(resp.candidates);
+        // resp.candidates.sort((a, b) => b.votes - a.votes);
+        // setCandidates(resp.candidates);
         if (resp.isCandidate) {
           setIsCandidate(true);
         }
