@@ -12,7 +12,7 @@ export default defineConfig({
       key: fs.readFileSync(path.resolve(__dirname, 'key.pem')),
       cert: fs.readFileSync(path.resolve(__dirname, 'cert.pem')),
     },
-    port: 5173, // Change the port to your desired HTTPS port
+    port: 443, // Change the port to your desired HTTPS port
   },
 });
 
