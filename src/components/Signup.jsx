@@ -31,7 +31,7 @@ export default function Signup({ log, setLog }) {
             setConfirm("");
             return;
         }
-        const response = await fetch("http://localhost:8080/sign-up", {
+        const response = await fetch("http://20.193.131.102:8080/sign-up", {
             method: 'POST',
             headers: {'Content-Type': 'application/json',},
             body: JSON.stringify({

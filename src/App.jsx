@@ -12,7 +12,8 @@ function App() {
   let [isCandidate, setIsCandidate] = useState(false);
   let [candidates, setCandidates] = useState(new Array());
   useEffect(() => {
-    let sock = new WebSocket("ws://localhost:8080/ws");
+    //let sock = new WebSocket("ws://localhost:8080/ws");
+    let sock = new WebSocket("ws://20.193.131.102:8080/ws");
     sock.addEventListener('open', (event) => {
       console.log('WebSocket connection opened');
     });
@@ -39,7 +40,8 @@ function App() {
     if (token) {
       setLog(true);
       let func = async () => {
-        let resp = await fetch("http://localhost:8080/is-candidate", {
+        //let resp = await fetch("http://localhost:8080/is-candidate", {
+	  let resp = await fetch("http://20.193.131.102:8080/is-candidate", {
           method: "POST",
           headers: {'Content-Type': 'application/json',},
           body: JSON.stringify({

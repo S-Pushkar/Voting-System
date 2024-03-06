@@ -18,7 +18,7 @@ export default function Login({ log, setLog }) {
             setEmail("");
             setPassword("");
         }
-        const response = await fetch("http://localhost:8080/log-in", {
+        const response = await fetch("http://20.193.131.102:8080/log-in", {
             method: "POST",
             headers: {'Content-Type': 'application/json',},
             body: JSON.stringify({

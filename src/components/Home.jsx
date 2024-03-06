@@ -5,7 +5,7 @@ export default function Home({ log, isCandidate, setIsCandidate, candidates }) {
     // @param -> candidate: object from db
     async function handleVote(candidate) {
         const token = localStorage.getItem('token');
-        const response = await fetch("http://localhost:8080/vote", {
+        const response = await fetch("http://20.193.131.102:8080/vote", {
             method: "POST",
             headers: {'Content-Type': 'application/json',},
             body: JSON.stringify({
@@ -29,7 +29,7 @@ export default function Home({ log, isCandidate, setIsCandidate, candidates }) {
             return alert("Please login to register.");
         }
         const token = localStorage.getItem('token');
-        const response = await fetch("http://localhost:8080/register", {
+        const response = await fetch("http://20.193.131.102:8080/register", {
             method: "POST",
             headers: {'Content-Type': 'application/json',},
             body: JSON.stringify({
@@ -48,7 +48,7 @@ export default function Home({ log, isCandidate, setIsCandidate, candidates }) {
     
     async function handleUnregister() {
         const token = localStorage.getItem('token');
-        const response = await fetch("http://localhost:8080/unregister", {
+        const response = await fetch("http://20.193.131.102:8080/unregister", {
             method: "POST",
             headers: {'Content-Type': 'application/json',},
             body: JSON.stringify({
