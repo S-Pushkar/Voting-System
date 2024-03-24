@@ -9,10 +9,11 @@ export default defineConfig({
   plugins: [react()],
   server: {
     https: {
+      // Send the key and certificate
       key: fs.readFileSync(path.resolve(__dirname, 'key.pem')),
       cert: fs.readFileSync(path.resolve(__dirname, 'cert.pem')),
     },
-    port: 443, // Change the port to your desired HTTPS port
+    port: 443, // Change the port to 443
   },
 });
 
