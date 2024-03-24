@@ -3,18 +3,22 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 export default function Signup({ log, setLog }) {
+    // useState to store name, email, password and confirm as states
     let [name, setName] = useState("");
     let [email, setEmail] = useState("");
     let [password, setPassword] = useState("");
     let [confirm, setConfirm] = useState("");
     let navigate = useNavigate();
 
+    // if user is already logged in, redirect to home page
     if (log) {
         navigate("/");
     }
 
+    // function to handle signup
     async function handleSubmit(e) {
         e.preventDefault();
+        // check if name, email, password and confirm are empty
         if (name == "" || email == "" || password == "" || confirm == "") {
             alert("Please enter inputs.");
             setName("");
@@ -23,6 +27,7 @@ export default function Signup({ log, setLog }) {
             setConfirm("");
             return;
         }
+        // check if password and confirm are same
         if (password !== confirm) {
             alert("Password and confirmation password do not match.");
             setName("");
@@ -31,6 +36,7 @@ export default function Signup({ log, setLog }) {
             setConfirm("");
             return;
         }
+        // fetch request to signup
         const response = await fetch("http://localhost:8080/sign-up", {
             method: 'POST',
             headers: {'Content-Type': 'application/json',},
@@ -41,6 +47,7 @@ export default function Signup({ log, setLog }) {
             })
         });
         console.log(response);
+        // if response is ok, update the jsonwebtoken in localStorage and set log to true and redirect to home page
         if (response.ok) {
             const { token } = await response.json();
             localStorage.setItem("token", token);

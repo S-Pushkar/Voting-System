@@ -2,9 +2,11 @@ import React from "react";
 
 export default function Home({ log, isCandidate, setIsCandidate, candidates }) {
 
-    // @param -> candidate: object from db
+    // function to handle voting
     async function handleVote(candidate) {
+        // check if user is logged in by checking if jsonwebtoken is present in localStorage
         const token = localStorage.getItem('token');
+        // fetch request to vote for a candidate
         const response = await fetch("http://localhost:8080/vote", {
             method: "POST",
             headers: {'Content-Type': 'application/json',},
@@ -13,22 +15,26 @@ export default function Home({ log, isCandidate, setIsCandidate, candidates }) {
                 candidate: candidate
             })
         });
-        
+        // if response is ok, update the jsonwebtoken in localStorage
         if (response.ok) {
             let resData = await response.json();
             localStorage.setItem('token', resData.token);
         }
+        // if response status is 400, alert the user with the message received from the server
         else if (response.status == 400) {
             const resp = await response.json();
             alert(resp.message);
         }
     }
 
+    // function to handle registering as a candidate
     async function handleRegister() {
+        // If user is not logged in, alert the user to login
         if (!log) {
             return alert("Please login to register.");
         }
         const token = localStorage.getItem('token');
+        // fetch request to register as a candidate
         const response = await fetch("http://localhost:8080/register", {
             method: "POST",
             headers: {'Content-Type': 'application/json',},
@@ -36,6 +42,7 @@ export default function Home({ log, isCandidate, setIsCandidate, candidates }) {
                 token: token
             })
         });
+        // if response is ok, update the jsonwebtoken in localStorage and set isCandidate to true
         if (response.ok) {
             let resData = await response.json();
             localStorage.setItem('token', resData.token);
@@ -45,9 +52,11 @@ export default function Home({ log, isCandidate, setIsCandidate, candidates }) {
             alert("Failed to register.");
         }
     }
-    
+
+    // function to handle unregistering as a candidate
     async function handleUnregister() {
         const token = localStorage.getItem('token');
+        // fetch request to unregister as a candidate
         const response = await fetch("http://localhost:8080/unregister", {
             method: "POST",
             headers: {'Content-Type': 'application/json',},
@@ -55,6 +64,7 @@ export default function Home({ log, isCandidate, setIsCandidate, candidates }) {
                 token: token
             })
         });
+        // if response is ok, update the jsonwebtoken in localStorage and set isCandidate to false
         if (response.ok) {
             let resData = await response.json();
             localStorage.setItem('token', resData.token);

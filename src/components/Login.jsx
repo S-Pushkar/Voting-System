@@ -3,21 +3,26 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 export default function Login({ log, setLog }) {
+    // useState to store email and password as states
     let [email, setEmail] = useState("");
     let [password, setPassword] = useState("");
     let navigate = useNavigate();
 
+    // if user is already logged in, redirect to home page
     if (log) {
         navigate("/");
     }
 
+    // function to handle login
     async function handleSubmit(e) {
         e.preventDefault();
+        // check if email and password are empty
         if (email == "" || password == "") {
             alert("Please enter a valid Email and Password");
             setEmail("");
             setPassword("");
         }
+        // fetch request to login
         const response = await fetch("http://localhost:8080/log-in", {
             method: "POST",
             headers: {'Content-Type': 'application/json',},
@@ -26,12 +31,14 @@ export default function Login({ log, setLog }) {
                 password: password
             })
         });
+        // if response is ok, update the jsonwebtoken in localStorage and set log to true and redirect to home page
         if (response.ok) {
             const { token } = await response.json();
             localStorage.setItem("token", token);
             setLog(true);
             navigate("/");
         }
+        // if response status is 400, alert the user with the message received from the server
         else {
             const { reason } = await response.json();
             alert(reason);

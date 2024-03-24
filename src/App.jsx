@@ -8,18 +8,20 @@ import { useEffect, useState } from 'react';
 
 function App() {
   
-  let [log, setLog] = useState(false);
-  let [isCandidate, setIsCandidate] = useState(false);
-  let [candidates, setCandidates] = useState(new Array());
+  let [log, setLog] = useState(false);  // log is true if user is logged in
+  let [isCandidate, setIsCandidate] = useState(false);  // isCandidate is true if user is a candidate
+  let [candidates, setCandidates] = useState(new Array());  // candidates is an array of objects containing candidate details
   useEffect(() => {
+    // WebSocket connection to get real-time updates
     let sock = new WebSocket("ws://localhost:8080/ws");
     sock.addEventListener('open', (event) => {
       console.log('WebSocket connection opened');
     });
+    // add event listener to handle messages received from server
     sock.addEventListener('message', (event) => {
-      // console.log('Received from server:', event.data);
+      // event.data contains the data sent by the server
       const data = JSON.parse(event.data);
-      // data.sort((a, b) => b.votes - a.votes);
+      // sort the data based on the name of the candidate
       data.sort((a, b) => {
         if (a.name < b.name) {
           return -1;
@@ -29,26 +31,29 @@ function App() {
         }
         return 0;
       });
+      // update the state with the new data
       setCandidates(data);
     });
     sock.addEventListener('close', (event) => {
       console.log('WebSocket connection closed');
     });
     ////////////////////////////////////////////////////////////////////////////
+    // check if user is logged in by checking if jsonwebtoken is present in localStorage
     const token = localStorage.getItem('token');
     if (token) {
+      // if token is present, set log to true
       setLog(true);
       let func = async () => {
+        // check if user is a candidate
         let resp = await fetch("http://localhost:8080/is-candidate", {
           method: "POST",
           headers: {'Content-Type': 'application/json',},
           body: JSON.stringify({
-              token: token
+              token: token                // send the token to the server for verification
           })
         });
         resp = await resp.json();
-        // resp.candidates.sort((a, b) => b.votes - a.votes);
-        // setCandidates(resp.candidates);
+        // if user is a candidate, set isCandidate to true
         if (resp.isCandidate) {
           setIsCandidate(true);
         }
@@ -59,6 +64,7 @@ function App() {
     }
     ////////////////////////////////////////////////////////////////////////////////////
     return () => {
+      // close the WebSocket connection when the component is unmounted
       sock.close();
     }
   }, []);
